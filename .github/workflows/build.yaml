@@ -14,31 +14,26 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    # Checkout do repositório
     - name: Checkout code
       uses: actions/checkout@v2
 
-    # Configurar Node.js
     - name: Set up Node.js
       uses: actions/setup-node@v2
       with:
         node-version: '22'
 
-    # Instalar dependências
     - name: Install dependencies
       run: npm install
 
-    # Rodar os testes (opcional, mas recomendado)
-    - name: Run tests
-      run: npm test
+    - name: Run tests and generate coverage report
+      run: npm test -- --coverage
 
-    # Rodar o scanner do SonarQube
     - name: SonarQube Scan
       uses: SonarSource/sonarcloud-github-action@v2
       with:
         token: ${{ secrets.SONAR_TOKEN }}
-        projectName: 'sonarqube-demo'
       env:
         SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+        SONAR_SCANNER_OPTS: '-Dsonar.javascript.lcov.reportPaths=coverage/lcov-report/lcov-report.json'
 
     
