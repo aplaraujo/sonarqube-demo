@@ -6,6 +6,27 @@
     <title>Document</title>
 </head>
 <body>
-    
+    <h1>Cálculo da Média</h1>
+
+    <form id="grade-form">
+        <div>
+            <label for="grade1">Digite a primeira nota: </label>
+            <input type="number" name="grade1" id="grade1" step="0.1">
+        </div>
+        <div>
+            <label for="grade2">Digite a segunda nota: </label>
+            <input type="number" name="grade2" id="grade2" step="0.1">
+        </div>
+        <div>
+            <label for="grade3">Digite a terceira nota: </label>
+            <input type="number" name="grade3" id="grade3" step="0.1">
+        </div>
+        <button type="submit" id="average">Calcular média</button>
+    </form>
+
+    <h2>Sua média é: <span id="result"></span></h2>
+
+    <script type="module" src="/src/index.js"></script>
+    <script type="module" src="/src/average.js"></script>
 </body>
 </html>
