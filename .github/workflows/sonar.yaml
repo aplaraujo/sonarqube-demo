@@ -18,10 +18,3 @@ jobs:
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                   SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-            - run: |
-                npm install -g sonarqube-scanner
-                sonar-scanner \
-                    -Dsonar.token=${{ secrets.SONAR_TOKEN }} \
-                    -Dsonar.projectKey=sonarqube-demo
-                    -Dsonar.sources=src
-                    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
