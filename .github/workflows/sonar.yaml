@@ -17,7 +17,8 @@ jobs:
             - run: npm test
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                  SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+                  SONAR_HOST_URL: "http://localhost:9000"
+
             - run: |
                     npm install -g sonar-scanner
                     sonar-scanner \
