@@ -19,7 +19,7 @@ jobs:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                   SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
             - run: |
-                npm install -g sonar-scanner
+                npm install -g sonarqube-scanner
                 sonar-scanner \
                     -Dsonar.login=${{ secrets.SONAR_TOKEN }} \
                     -Dsonar.projectKey=sonarqube-demo
