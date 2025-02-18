@@ -18,4 +18,9 @@ jobs:
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                   SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-            - uses: sonarsource/sonarqube-scan-action@master
+            - uses: kitabisa/sonarqube-action@master
+              with:
+                host: ${{ secrets.SONAR_HOST_URL }}
+                login: ${{ secrets.SONAR_TOKEN }}
+                projectBaseDir: "src/"
+                projectKey: "sonarqube-demo"
