@@ -22,5 +22,5 @@ jobs:
               with:
                 host: ${{ secrets.SONAR_HOST_URL }}
                 login: ${{ secrets.SONAR_TOKEN }}
-                projectBaseDir: "src/"
+                projectBaseDir: "./src"
                 projectKey: "sonarqube-demo"
