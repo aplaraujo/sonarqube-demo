@@ -21,6 +21,7 @@ jobs:
             - run: |
                     npm install -g sonar-scanner
                     sonar-scanner \
+                    -X \
                     -Dsonar.projectKey=sonarqube-demo \
                     -Dsonar.sources=. \
                     -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
