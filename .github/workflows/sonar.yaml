@@ -13,12 +13,14 @@ jobs:
             - uses: actions/setup-node@v2
               with:
                   node-version: 18.x
-            - run: npm install
+            - run: npm ci
             - run: npm test
               env:
                   SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
                   SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
-            - uses: kitabisa/sonarqube-action@v1.2.0
-              with:
-                  host: ${{ secrets.SONAR_HOST_URL }}
-                  login: ${{ secrets.SONAR_TOKEN}}
+            - run: |
+                    npm install -g sonar-scanner
+                    sonar-scanner \
+                    -Dsonar.projectKey=sonarqube-demo \
+                    -Dsonar.sources=. \
+                    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
