@@ -1,28 +1,42 @@
-name: Demo
+name: SonarQube Scan
 
 on:
-    push:
-        branches: ["main"]
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
 
 jobs:
-    build:
-        runs-on: ubuntu-latest
+  sonarQube:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
 
-        steps:
-            - uses: actions/checkout@v2
-            - uses: actions/setup-node@v2
-              with:
-                  node-version: 18.x
-            - run: npm ci
-            - run: npm test
-              env:
-                  SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-                  SONAR_HOST_URL: "http://localhost:9000"
+      - name: Set up Node.js
+        uses: actions/setup-node@v2
+        with:
+          node-version: 18.x
 
-            - run: |
-                    npm install -g sonar-scanner
-                    sonar-scanner \
-                    -X \
-                    -Dsonar.projectKey=sonarqube-demo \
-                    -Dsonar.sources=. \
-                    -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info
+      - name: Install dependencies
+        run: npm install
+
+      - name: Run tests
+        run: npm test
+
+      - name: Run SonarQube Scan
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+        run: |
+          npm install -g sonar-scanner
+          sonar-scanner \
+            -Dsonar.projectKey=aplaraujo_sonarqube-demo \
+            -Dsonar.organization=aplaraujo \
+            -Dsonar.sources=. \
+            -Dsonar.tests=. \
+            -Dsonar.test.inclusions="**/*.spec.js" \
+            -Dsonar.javascript.lcov.reportPaths=coverage/lcov.info \
+            -Dsonar.host.url=https://sonarcloud.io \
+            -Dsonar.login=$SONAR_TOKEN
